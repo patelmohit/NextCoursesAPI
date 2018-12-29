@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using NSwag.AspNetCore;
 
 namespace NextCourses
 {
@@ -22,6 +24,29 @@ namespace NextCourses
         public void ConfigureServices(IServiceCollection services)
         {
             _UWApiKey = Configuration["UWApiKey"];
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerDocument(settings =>
+            {
+                settings.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "NextCourses API";
+                    document.Info.Description = "Find out which University of Waterloo courses you can take next.";
+                    document.Info.Contact = new NSwag.SwaggerContact
+                    {
+                        Name = "Mohit Patel",
+                        Email = "m265pate@edu.uwaterloo.ca",
+                        Url = "https://github.com/patelmohit/NextCoursesAPI"
+                    };
+                    document.Info.License = new NSwag.SwaggerLicense
+                    {
+                        Name = "MIT",
+                        Url = "https://opensource.org/licenses/MIT"
+                    };
+                };
+            });
+            services.AddHealthChecks();
         }
 
         public IConfiguration Configuration;
@@ -33,16 +58,14 @@ namespace NextCourses
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUi3();
+            app.UseHealthChecks("/ready");
+            app.Run( context =>
             {
-                if (string.IsNullOrEmpty(_UWApiKey))
-                {
-                    await context.Response.WriteAsync("No API Key detected.");
-                }
-                else
-                {
-                    await context.Response.WriteAsync("API key detected.");
-                }
+                context.Response.Redirect("swagger");
+                return Task.CompletedTask;
             });
         }
     }
