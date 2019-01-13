@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NextCourses.Clients;
 using NSwag.AspNetCore;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,10 @@ namespace NextCourses
                         Url = "https://opensource.org/licenses/MIT"
                     };
                 };
+            });
+            services.AddHttpClient<UWClient>(c =>
+            {
+                c.BaseAddress = new System.Uri("https://api.uwaterloo.ca/v2/");
             });
             services.AddHealthChecks();
         }
