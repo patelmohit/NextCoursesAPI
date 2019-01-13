@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NextCourses.Clients;
+using NextCourses.Context;
 using NSwag.AspNetCore;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,7 @@ namespace NextCourses
                 c.BaseAddress = new System.Uri("https://api.uwaterloo.ca/v2/");
             });
             services.AddHealthChecks();
+            services.AddDbContext<CourseContext>();
         }
 
         public IConfiguration Configuration;

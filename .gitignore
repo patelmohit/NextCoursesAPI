@@ -3,8 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# NextCourses-specific files
 .vscode
 Logs
+Migrations
+courses.db
 
 # User-specific files
 *.rsuse
