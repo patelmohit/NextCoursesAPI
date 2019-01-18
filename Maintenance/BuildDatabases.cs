@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 using NextCourses.Clients;
 using NextCourses.Context;
 using NextCourses.Models;
@@ -26,11 +27,14 @@ namespace NextCourses.Maintenence
         /// This method will add all necessary course-related information to the database. It accomplishes this by first retrieving all courses from the /courses endpoint, and iterates through each course to find all possible prerequisite course pairs. This information is then stored in the database in the Courses and Prereqs tables.
         /// </summary>
         /// <param name="apiKey"> The UW Api Key used to send requests </param>
+        /// <param name="connectionString"> The connection string to the sqlite database </param>
         /// <returns> Returns a database with course-related information and prerequsite-related pairs. </returns>
-        public static async Task Build(string apiKey)
+        public static async Task Build(string apiKey, string connectionString)
         {
             _client = new UWClient(apiKey);
-            _context = new CourseContext();
+            var optionsBuilder = new DbContextOptionsBuilder<CourseContext>();
+            optionsBuilder.UseSqlite(connectionString);
+            _context = new CourseContext(optionsBuilder.Options);
 
             var coursesResult = await _client.GetCourses();
             UWCoursesJson allCourses = JsonConvert.DeserializeObject<UWCoursesJson>(coursesResult);

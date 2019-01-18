@@ -19,12 +19,11 @@ namespace NextCourses.Context
         public DbSet<PrereqMap> Prereqs { get; set; }
 
         /// <summary>
-        /// Configure sqlite database to be created locally as courses.db
+        /// Base constructor for DbContext which will read connection string at startup
         /// </summary>
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlite("Data Source=courses.db");
-        }
+        public CourseContext(DbContextOptions<CourseContext> options)
+            : base(options)
+        { }
 
         /// <summary>
         /// Use a primary key consisting of multiple fields with both prereq course name and next course name
