@@ -7,7 +7,7 @@ NextCoursesAPI is an API which will help you select which University of Waterloo
 
 ## Motivation
 
-Searching for courses to take in university can be a tricky endeavor. The courses you need to take can be difficult to plan out, especially if they have a long sequence of prerequisites. You might also be interested in finding out if any of the courses you have taken satisfy the prerequisite of courses that you never heard about.
+Searching for courses to take in university can be a tricky endeavor. The courses you need to take can be difficult to plan out, especially if they have a long sequence of prerequisites. You might also be interested in finding out if any of the courses you have taken satisfy the prerequisites of courses you never heard about.
 
 NextCoursesAPI seeks to solve this problem by allowing you to search for all of the courses that have your course as a prerequisite. You can start with a first year course that you took in the 1A term, and see all of the courses that require that first year course as a prerequisite. If you repeat this for all of your 1A courses, you will have a diverse list of courses that you might be able to take in your 1B term, which will help you with your course selections. The possibilities of courses you can take at UW are endless, and this tool will help you plan it out.
 
@@ -24,6 +24,7 @@ To assist with the use of this API, the API has been developed following the Ope
 ## Sample Response
 <details>
     <summary>API response for PSYCH 257</summary>
+
 
 Request:
 
