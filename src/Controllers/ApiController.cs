@@ -76,7 +76,7 @@ namespace NextCourses.Controllers
             {
                 string next_course_title = _context.Courses.FirstOrDefault(
                     course => course.course_name == prereqMap.next_course_name).title;
-                next_courses.Add(new NextCourseInfo(next_course_title, prereqMap.next_course_name));
+                next_courses.Add(new NextCourseInfo(prereqMap.next_course_name, next_course_title));
             });
             next_courses.OrderBy(course => course.course_name);
             NextCourseReponse output = new NextCourseReponse(course_name, next_courses);
