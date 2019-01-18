@@ -13,7 +13,7 @@ namespace NextCourses.Maintenence
     /// <summary>
     /// Class which is responsible for creating the database used by the API.
     /// </summary>
-    class BuildDatabases
+    public class DatabaseBuilder
     {
         /// <summary>
         /// HTTP client to connect to the UWaterloo API
@@ -24,18 +24,23 @@ namespace NextCourses.Maintenence
         /// </summary>
         static CourseContext _context;
         /// <summary>
-        /// This method will add all necessary course-related information to the database. It accomplishes this by first retrieving all courses from the /courses endpoint, and iterates through each course to find all possible prerequisite course pairs. This information is then stored in the database in the Courses and Prereqs tables.
-        /// </summary>
+        /// The constructor for the database builder
         /// <param name="apiKey"> The UW Api Key used to send requests </param>
         /// <param name="connectionString"> The connection string to the sqlite database </param>
-        /// <returns> Returns a database with course-related information and prerequsite-related pairs. </returns>
-        public static async Task Build(string apiKey, string connectionString)
+        /// </summary>
+        public DatabaseBuilder(string apiKey, string connectionString)
         {
             _client = new UWClient(apiKey);
             var optionsBuilder = new DbContextOptionsBuilder<CourseContext>();
             optionsBuilder.UseSqlite(connectionString);
-            _context = new CourseContext(optionsBuilder.Options);
-
+            _context = new CourseContext(optionsBuilder.Options);  
+        }
+        /// <summary>
+        /// This method will add all necessary course-related information to the database. It accomplishes this by first retrieving all courses from the /courses endpoint, and iterates through each course to find all possible prerequisite course pairs. This information is then stored in the database in the Courses and Prereqs tables.
+        /// </summary>
+        /// <returns> Returns a database with course-related information and prerequsite-related pairs. </returns>
+        public async Task Build()
+        {
             var coursesResult = await _client.GetCourses();
             UWCoursesJson allCourses = JsonConvert.DeserializeObject<UWCoursesJson>(coursesResult);
             var apiResults = allCourses.data.Select(course => SearchPrereqs(course));
@@ -64,7 +69,7 @@ namespace NextCourses.Maintenence
         /// </summary>
         /// <param name="course"> The course to search the prerequisites for</param>
         /// <returns>Returns a tuple containing the course and the list of corresponding prerequisites </returns>
-        private static async Task<Tuple<UWCourse, List<PrereqMap>>> SearchPrereqs(UWCourse course)
+        public async Task<Tuple<UWCourse, List<PrereqMap>>> SearchPrereqs(UWCourse course)
         {
             try
             {
@@ -107,7 +112,7 @@ namespace NextCourses.Maintenence
         /// <param name="prereqSet"> The set of prerequisites for the course </param>
         /// <param name="prereqJson"> The prerequisites_parsed JSON to be parsed </param>
         /// <returns> Updates the prereqSet with all prerequisites parsed </returns>
-        private static void ParsePrerequisites(ref HashSet<string> prereqSet, List<object> prereqJson)
+        public void ParsePrerequisites(ref HashSet<string> prereqSet, List<object> prereqJson)
         {
             if (prereqJson == null || !prereqJson.Any()) return;
             else

@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "requests": 44476,
+        "timestamp": 1547785392,
+        "status": 200,
+        "message": "Request successful",
+        "method_id": 1181,
+        "method": {}
+    },
+    "data": {
+        "subject": "PHYS",
+        "catalog_number": "375",
+        "title": "Stars",
+        "prerequisites": "Prereq: PHYS 112 or 122 and two of PHYS 234, 242, 256, 275, 358, AMATH 271",
+        "prerequisites_parsed": [
+            [
+                1,
+                "PHYS112",
+                "PHYS122"
+            ],
+            [
+                2,
+                "PHYS234",
+                "PHYS242",
+                "PHYS256",
+                "PHYS275",
+                "PHYS358",
+                "AMATH271"
+            ]
+        ]
+    }
+}
