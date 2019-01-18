@@ -5,8 +5,9 @@ os: linux
 dist: xenial
 
 install:
-- dotnet restore
+- dotnet restore src/NextCourses.csproj
 
 script:
-- dotnet build
+- dotnet build src/NextCourses.csproj
+- dotnet test tests/UnitTests.csproj
  
