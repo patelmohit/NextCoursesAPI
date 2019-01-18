@@ -6,61 +6,46 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NextCourses.Models
 {
 
-    public class UWCourseJson
+    /// <summary>
+    /// This model represents the JSON output received from the courses endpoint
+    /// </summary>
+    public class UWCoursesJson
     {
+        /// <summary>
+        /// The metadata for the courses response
+        /// </summary>
         public Meta meta { get; set; }
+        /// <summary>
+        /// The list of courses retrieved from the courses endpoint
+        /// </summary>
         public List<UWCourse> data { get; set; }
     }
 
-    public class Meta
-    {
-        public int requests;
-        public int timestamp;
-        public int status;
-        public string message;
-        public int method_id;
-
-    }
-
+    /// <summary>
+    /// This model represents the Course stored in the database, which is the Course retrieved from UWCoursesJson enriched with course_name netadata
+    /// </summary>
     public class UWCourse
     {
+        /// <summary>
+        /// The combined subject and catalog_number of the course
+        /// </summary>
         [Key]
+        public string course_name { get; set; }
+        /// <summary>
+        /// The registrar-assigned course id
+        /// </summary>
         public string course_id { get; set; }
+        /// <summary>
+        /// The subject of the course
+        /// </summary>
         public string subject { get; set; }
+        /// <summary>
+        /// The catalog number of the course
+        /// </summary>
         public string catalog_number { get; set; }
+        /// <summary>
+        /// The title of the course
+        /// </summary>
         public string title { get; set; }
-        public double units { get; set; }
-        public string description { get; set; }
-        [NotMapped]
-        public List<string> instructions { get; set; }
-        public string prerequisites { get; set; }
-        public string antirequisites { get; set; }
-        public string corequisites { get; set; }
-        public string crosslistings { get; set; }
-        [NotMapped]
-        public List<string> terms_offered { get; set; }
-        public string notes { get; set; }
-        [NotMapped]
-        public Offerings offerings { get; set; }
-        public Boolean needs_department_consent { get; set; }
-        public Boolean needs_instructor_consent { get; set; }
-        [NotMapped]
-        public List<string> extra { get; set; }
-        public string calendar_year { get; set; }
-        public string url { get; set; }
-        public string academic_level { get; set; }
     }
-
-    public class Offerings
-    {
-        public Boolean online { get; set; }
-        public Boolean online_only { get; set; }
-        public Boolean st_jerome { get; set; }
-        public Boolean st_jerome_only { get; set; }
-        public Boolean renison { get; set; }
-        public Boolean renison_only { get; set; }
-        public Boolean conrad_grebel { get; set; }
-        public Boolean conrad_grebel_only { get; set; }
-    }
-
 }

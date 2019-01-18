@@ -12,8 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-[assembly: ApiConventionType(typeof(DefaultApiConventions))]
-
 namespace NextCourses
 {
     public class Program

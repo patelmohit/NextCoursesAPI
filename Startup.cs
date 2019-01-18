@@ -6,12 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NextCourses.Clients;
 using NextCourses.Context;
+using NextCourses.Maintenence;
 using NSwag.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace NextCourses
 {
     public class Startup
@@ -48,10 +50,6 @@ namespace NextCourses
                     };
                 };
             });
-            services.AddHttpClient<UWClient>(c =>
-            {
-                c.BaseAddress = new System.Uri("https://api.uwaterloo.ca/v2/");
-            });
             services.AddHealthChecks();
             services.AddDbContext<CourseContext>();
         }
@@ -69,11 +67,6 @@ namespace NextCourses
             app.UseSwagger();
             app.UseSwaggerUi3();
             app.UseHealthChecks("/ready");
-            app.Run( context =>
-            {
-                context.Response.Redirect("swagger/index.html");
-                return Task.CompletedTask;
-            });
         }
     }
 }

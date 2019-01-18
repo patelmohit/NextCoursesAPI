@@ -6,8 +6,6 @@
 # NextCourses-specific files
 .vscode
 Logs
-Migrations
-courses.db
 
 # User-specific files
 *.rsuse
