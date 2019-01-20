@@ -80,7 +80,7 @@ cd tests
 dotnet test
 ```
 ## Update frequency
-The database and web API will be updated each term, since the list of courses is updated each term. There is a helper class in `src/ 	Maintenance/BuildDatabases.cs` which will assist with the creation of the SQLite database. You will need a valid UW Api Key in order to use the helper class.
+The database and web API will be updated each term, since the list of courses is updated each term. There is a helper class in `src/Maintenance/BuildDatabases.cs` which will assist with the creation of the SQLite database. You will need a valid UW Api Key in order to use the helper class.
 
 ## License
 
