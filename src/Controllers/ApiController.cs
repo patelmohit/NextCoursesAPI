@@ -56,11 +56,11 @@ namespace NextCourses.Controllers
         /// </summary>
         /// <param name="subject">The subject of the course. Example: CS</param>
         /// <param name="catalog_number"> The catalog number of the course. Example: 350</param>
-        /// <returns> Returns a NextCourseReponse which contains the list of next courses </returns>
+        /// <returns> Returns a NextCourseResponse which contains the list of next courses </returns>
         [HttpGet("{subject}/{catalog_number}")]
-        [ProducesResponseType(200, Type = typeof(NextCourseReponse))]
+        [ProducesResponseType(200, Type = typeof(NextCourseResponse))]
         [ProducesResponseType(404)]
-        public ActionResult<NextCourseReponse> Get(string subject, string catalog_number)
+        public ActionResult<NextCourseResponse> Get(string subject, string catalog_number)
         {
             Log.Information($"Searching next courses for {subject} {catalog_number}");
             string course_name = subject.ToUpper() + catalog_number;
@@ -79,7 +79,7 @@ namespace NextCourses.Controllers
                 next_courses.Add(new NextCourseInfo(prereqMap.next_course_name, next_course_title));
             });
             next_courses.OrderBy(course => course.course_name);
-            NextCourseReponse output = new NextCourseReponse(course_name, next_courses);
+            NextCourseResponse output = new NextCourseResponse(course_name, next_courses);
             return output;
         }
     }

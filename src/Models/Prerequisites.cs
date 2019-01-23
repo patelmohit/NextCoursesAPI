@@ -67,12 +67,12 @@ namespace NextCourses.Models
     /// <summary>
     /// The next courses that can be taken after a given course. Includes the name of the course and a list of NextCourseInfo for the courses that can be taken after.
     /// </summary>
-    public class NextCourseReponse
+    public class NextCourseResponse
     {
         /// <summary>
         /// Constructor for response
         /// </summary>
-        public NextCourseReponse(string course_name, List<NextCourseInfo> course_list)
+        public NextCourseResponse(string course_name, List<NextCourseInfo> course_list)
         {
             prerequisite_course = course_name;
             next_courses = course_list;
